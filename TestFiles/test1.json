@@ -1,0 +1,21 @@
+{
+  "_id": "1040",
+  "dest_id": "1000",
+  "name": "dumbDir.txt",
+	"sub": [{
+    "id": "1050",
+    "dest_id": "1040",
+		"name": "dumbDir2.txt",
+		"sub": [],
+		"files": []}],
+	"files": [{
+		"id": "500050",
+    "dest_id": "1040"
+		"name": "dumbFile.txt",
+		"content": "This is a file continaing my dumb thoughts."},
+  {
+    "id": "500050",
+    "dest_id": "1040"
+		"name": "dumbFile.2txt",
+		"content": "This is a file continaing more of my dumb thoughts."}]
+}

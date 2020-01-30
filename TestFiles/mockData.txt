@@ -1,0 +1,19 @@
+// Test data
+fileID++
+home.Files = append(home.Files, File {
+  ID: strconv.Itoa(fileID),
+  Name: "myFile.cpp",
+  Content: "#include <iostream> ..."  })
+
+fileID++
+home.Files = append(home.Files, File {
+  ID: strconv.Itoa(fileID),
+  Name: "myFile2.cpp",
+  Content: "#include <stdio.h> ..."  })
+
+folderID++
+home.Sub = append(home.Sub, Dir {
+  ID: strconv.Itoa(folderID),
+  Name: "myDir",
+  Sub: make([]Dir, 0),
+  Files: make([]File, 0)  })

@@ -1,0 +1,6 @@
+{
+  "_id": "500100",
+  "dest_id": "1000"
+  "name": "file1.txt",
+	"content": "This is a file continaing my thoughts."
+}
