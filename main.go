@@ -209,13 +209,14 @@ func updateFile (w http.ResponseWriter, r *http.Request) {
   // Get ID
   params := mux.Vars(r) // Get params
 
-  //Loop through to find ID
+  //Loop through subdirectories to find ID
   for i, item := range home.Sub {
-    if item.ID == params["id"] {
+    if item.ID == params["id"] { 
+
       // Delete old version
       home.Sub = append(home.Sub[:i], home.Sub[i+1:]...)
 
-      // C
+      // Create temp new file
       var file File
 
       //De-JSON input
@@ -223,6 +224,8 @@ func updateFile (w http.ResponseWriter, r *http.Request) {
 
       // Reset file ID
       file.ID = params["id"]
+
+
 
       // Append File back to the destination ID (update file and/or move it)
       if file.DestID != strconv.Itoa(1000) {
@@ -246,15 +249,28 @@ func deleteByID (w http.ResponseWriter, r *http.Request) {
   params := mux.Vars(r) // Get params
 
   // Illegal (and impossible) to delete 'home' directory
-  //Loop through subdirectories to find ID
-  for i, item := range home.Sub {
-    if item.ID == params["id"] {
-      // Slice it out
-      home.Sub = append(home.Sub[:i], home.Sub[i+1:]...)
-      break
+  id, err := strconv.Atoi(params["id"])
+  if err != nil {
+    log.Fatal(err)
+  } else if id < 500000 {
+    //Loop through subdirectories to find ID
+    for i, item := range home.Sub {
+      if item.ID == params["id"] {
+        // Slice it out
+        home.Sub = append(home.Sub[:i], home.Sub[i+1:]...)
+        break
+      }
+    }
+  } else {
+    // Loop through files to find ID
+    for i, item := range home.Files {
+      if item.ID == params["id"] {
+        // Slice it out
+        home.Files = append(home.Files[:i], home.Files[i+1:]...)
+        break
+      }
     }
   }
-
   json.NewEncoder(w).Encode(home)
 }
 
@@ -294,7 +310,7 @@ func main() {
   router.HandleFunc("/api/getFolder/{id}", getFolder).Methods("GET")
   router.HandleFunc("/api/makeFile", makeFile).Methods("POST")
   router.HandleFunc("/api/makeFolder", makeFolder).Methods("POST")
-  router.HandleFunc("/api/updateDile/{id}", updateFile).Methods("PUT")
+  router.HandleFunc("/api/updateFile/{id}", updateFile).Methods("PUT")
   router.HandleFunc("/api/delete/{id}", deleteByID).Methods("DELETE")
   log.Fatal(http.ListenAndServe(":8000", router))
 }
