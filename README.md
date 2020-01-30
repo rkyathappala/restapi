@@ -42,4 +42,4 @@ To write to (or update) a file, make an HTTP PUT request to URL= http://localhos
 
 The write method works by first deleting the existing file data, then replacing the all fields except the ID field, which is the only unique, immutable element. This method also allows for the file to simply be moved by changing the file's destination ID element.
 
-**_The delete method is not currently working, thus impacting the updae method_**
+**_The write method is not currently working, this is partially due to the fact that the delete function is not fully working._**
