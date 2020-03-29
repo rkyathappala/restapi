@@ -5,21 +5,25 @@
 // Search REST API for a file/directory
 ///////////////////////////////////////////////////////////////////////////////
 
-package utils
+package element
 
 import (
   "fmt"
-  "restapi/element"
 )
 
 // SearchFor will find and return the address of an Element whose name
 // matches the search term
-func (origin *element.Element) SearchFor(target string) (e *element.Element, err Error) {
+func (origin *Element) SearchFor(target string) (e *Element, err error) {
   if origin.IsDir() {
-    for _, el := range Elem.Subtree(origin) {
-      if Elem.Name(el) == target {
-        return el, nil
-      } else if origin.IsDir(el) {
+    subs, err := origin.Subtree()
+    if err != nil {
+      return nil, fmt.Errorf("search: %s", err)
+    }
+
+    for _, el := range subs {
+      if el.Name() == target {
+        return &el, nil
+      } else if el.IsDir() {
         go el.SearchFor(target)
       }
     }
