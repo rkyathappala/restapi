@@ -7,13 +7,18 @@
 
 package element
 
-// Element interface
+import "net/http"
+
+// Elem is the interface for element objects
 // Able to interact with both file/directory structures
 type Elem interface {
   // bools.go
   Empty() bool
   IsFile() bool
   IsDir() bool
+
+  // setters.go
+  GetData(r *http.Request)
 
   // receivers.go
   Name() string
@@ -39,14 +44,14 @@ type Element struct {
 // Able to be addressed (name & ID), and contains Content
 type file struct {
   parent *dir
-  name string
-  content string
+  Name string     `json:"name"`
+  Content string  `json:"content"`
 }
 
 // Directory struct
 // Able to be addressed, and contian multiple files & folders
 type dir struct {
   parent *dir
-  name string
-  subtree []Element
+  Name string       `json:"name"`
+  Subtree []Element `json:"subtree"`
 }

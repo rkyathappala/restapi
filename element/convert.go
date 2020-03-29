@@ -4,35 +4,44 @@ import (
   "fmt"
 )
 
-// toDir converts elements types to direcory types
+// toDir converts elements types to direcory objects
 func (el *Element) toDir() (*dir, error) {
-  if len(el.content) == 0 {
+  if el.IsDir() {
     d := new(dir)
-    d.name = el.name
+    d.Name = el.name
     d.parent = el.parent
-    d.subtree = el.subtree
+    d.Subtree = el.subtree
     return d, nil
   }
 
   return nil, fmt.Errorf("convert: \"%s\" connot be converted to directory", el.name)
 }
 
+// ToFile converts element objects to file objects
 func (el *Element) toFile() (*file, error) {
-  if len(el.subtree) == 0 {
+  if el.IsFile() {
     f := new(file)
-    f.name = el.name
+    f.Name = el.name
     f.parent = el.parent
-    f.content = el.content
+    f.Content = el.content
     return f, nil
   }
 
-  return nil, fmt.Errorf("convert: \"%s\" connot be converted to file", el.name)
+  return nil, fmt.Errorf("toFile: \"%s\" connot be converted to file", el.name)
 }
 
 func (d *dir) toElement() *Element {
   el := new(Element)
-  el.name = d.name
+  el.name = d.Name
   el.parent = d.parent
-  el.subtree = d.subtree
+  el.subtree = d.Subtree
+  return el
+}
+
+func (f *file) toElement() *Element {
+  el := new(Element)
+  el.name = f.Name
+  el.parent = f.parent
+  el.content = f.Content
   return el
 }
