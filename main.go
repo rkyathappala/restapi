@@ -26,6 +26,6 @@ func main() {
 
   // Route handlers & endpoints
   router.HandleFunc("/make/{file}", crud.MkFile).Methods("POST")
-  router.HandleFunc("/makea/{parent}/{file}", crud.MkFile).Methods("POST")
+  router.HandleFunc("/make/{parent}/{file}", crud.MkFile).Methods("POST")
   log.Fatal(http.ListenAndServe(":8000", router))
 }
