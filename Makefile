@@ -1,5 +1,10 @@
 # Service Name.
-NAME=restapi.exe
+ifeq ($(OS), Windows_NT)
+	NAME := restapi.exe
+else
+	NAME := restapi
+endif
+
 VERSION=${BUILD_VERSION}
 
 # Attempt to determine the version infromation form git
@@ -14,7 +19,7 @@ ifeq ($(VERSION),)
 	# If the tag commit is not empty, check if in the latest commit and use as version.
 	ifneq ($(TAG_COMMIT),)
 		ifneq ($(COMMIT), $(TAG_COMMIT))
-			VERSION := $(VERSION)-$(COMMIT)-$(DATE)
+			VERSION := v$(VERSION)-$(COMMIT)-$(DATE)
 		endif
 	endif
 
@@ -32,13 +37,14 @@ endif
 all: clean restapi
 
 restapi:
-	@echo "Building ${NAME} ${VERSION} ${BUILD}"
-	go build .
+	@printf "Building ${NAME} ${VERSION} ${BUILD} ... "
+	@go build .
+	@printf "Done.\n"
 
 new_image: clean restapi
-	rm -f image/$(NAME)
-	mv $(NAME) image/$(NAME)
-	@echo "${NAME} ${VERSION} ${BUILD} is now stored in image/"
+	@rm -f image/$(NAME)
+	@mv $(NAME) image/$(NAME)
+	@echo "${NAME} ${VERSION} ${BUILD} is now tracked in image/"
 
 clean:
-	rm -f $(NAME)
+	@-rm -f $(NAME)
