@@ -9,7 +9,6 @@ func (el *Element) toDir() (*dir, error) {
   if el.IsDir() {
     d := new(dir)
     d.Name = el.name
-    d.parent = el.parent
     d.Subtree = el.subtree
     return d, nil
   }
@@ -22,7 +21,6 @@ func (el *Element) toFile() (*file, error) {
   if el.IsFile() {
     f := new(file)
     f.Name = el.name
-    f.parent = el.parent
     f.Content = el.content
     return f, nil
   }
@@ -33,7 +31,6 @@ func (el *Element) toFile() (*file, error) {
 func (d *dir) toElement() *Element {
   el := new(Element)
   el.name = d.Name
-  el.parent = d.parent
   el.subtree = d.Subtree
   return el
 }
@@ -41,7 +38,6 @@ func (d *dir) toElement() *Element {
 func (f *file) toElement() *Element {
   el := new(Element)
   el.name = f.Name
-  el.parent = f.parent
   el.content = f.Content
   return el
 }

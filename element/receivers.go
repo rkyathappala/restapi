@@ -9,7 +9,8 @@ func (el *Element) Name() string {
 
 // Parent returns a pointer to an interface of the parent directory
 func (el *Element) Parent() *Element {
-  return el.parent.toElement()
+  par, _ := LookupByID(el.parent)  
+  return par
 }
 
 // Subtree returns all elements inside a directory element
