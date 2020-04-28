@@ -1,13 +1,11 @@
-package crud
+package element
 
 import (
   "strings"
-
-  "restapi/element"
 )
 
 // PrintJSON will print element data to JSON format
-func outputAsJSON(el *element.Element) (output string) {
+func (el *Element) OutputJSON() (output string) {
   output = "{\n\t\"name\": " + el.Name() + "\n"
   if el.IsDir() {
     output += "\t\"subtree\": ["
