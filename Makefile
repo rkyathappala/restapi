@@ -13,7 +13,7 @@ ifeq ($(VERSION),)
 	TAG := $(shell git describe --abbrev=0 --tags ${TAG_COMMIT} 2>/dev/null || true)
 	COMMIT := $(shell git rev-parse --short HEAD)
 	DATE = $(shell git log -1 --format=%cd --date=format:"%Y%m%d")
-	TIMESTAMP = $(shell date '+%Y%m%dT%H%M%S')
+	TIMESTAMP = $(shell date '+%Y%m%dT%H%M%Sz')
 	VERSION := $(TAG:v%=%)
 
 	# If the tag commit is not empty, check if in the latest commit and use as version.
