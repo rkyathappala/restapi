@@ -5,6 +5,9 @@ else
 	NAME = restapi
 endif
 
+# Log file
+LOG = restapi.log
+
 # Attempt to determine the version infromation form git
 VERSION=${BUILD_VERSION}
 ifeq ($(VERSION),)
@@ -50,4 +53,4 @@ new_image: clean restapi
 	@echo "${NAME} ${VERSION} is now tracked in image/"
 
 clean:
-	@-rm -f $(NAME)
+	@-rm -f $(NAME) $(LOG)
