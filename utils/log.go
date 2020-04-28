@@ -5,6 +5,7 @@ import (
   "os"
   "bufio"
   "strings"
+  "time"
   //"path/filepath"
 )
 
@@ -47,5 +48,5 @@ func init() {
 // Log is a custom printf function
 func Log(format string, a ...interface{}) (n int, err error) {
   defer Logger.Flush()
-  return fmt.Fprintf(Logger, format, a...)
+  return fmt.Fprintf(Logger, Timestamp(time.Now()) + ": " + format + "\n", a...)
 }
