@@ -5,8 +5,6 @@ import (
   "strconv"
 )
 
-type ID string
-
 var resolve map[ID]*Element
 var unUsedID []ID
 var _id uint64 = 0
@@ -15,6 +13,11 @@ func getNewID() ID {
   tmp := strconv.FormatUint(_id, 16)
   _id++
   return ID(tmp)
+}
+
+// GetID allows user to get a filetree ID from an integer index
+func GetID(input_id uint64) ID {
+  return ID(strconv.FormatUint(input_id, 16))
 }
 
 // Push adds element reference to the filetree stack, resolve

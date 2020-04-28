@@ -7,6 +7,9 @@
 
 package element
 
+// ID for all elements
+type ID string
+
 // Element struct
 // Polymorphic type to keep files and directories properly seperate, while
 // making searching easier
@@ -28,6 +31,7 @@ type Element struct {
 // Able to be addressed (name & ID), and contains Content
 type file struct {
   Name string     `json:"name"`
+  Parent ID       `json:"parent"`
   Content string  `json:"content"`
 }
 
@@ -35,5 +39,6 @@ type file struct {
 // Able to be addressed, and contian multiple files & folders
 type dir struct {
   Name string       `json:"name"`
+  Parent ID         `json:"parent"`
   Subtree []Element `json:"subtree"`
 }

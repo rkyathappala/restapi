@@ -35,6 +35,8 @@ func (el *Element) SetFileData(r *http.Request) error {
   err := json.NewDecoder(r.Body).Decode(file)
   if err != nil {
     return fmt.Errorf("GetFileData: %s", err)
+  } else if file.Parent == ID("") {
+    file.Parent = ID("0")
   }
 
   *el = *(file.toElement())

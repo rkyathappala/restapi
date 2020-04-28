@@ -31,6 +31,7 @@ func (el *Element) toFile() (*file, error) {
 func (d *dir) toElement() *Element {
   el := new(Element)
   el.name = d.Name
+  el.parent = d.Parent
   el.subtree = d.Subtree
   return el
 }
@@ -38,6 +39,7 @@ func (d *dir) toElement() *Element {
 func (f *file) toElement() *Element {
   el := new(Element)
   el.name = f.Name
+  el.parent = f.Parent
   el.content = f.Content
   return el
 }
