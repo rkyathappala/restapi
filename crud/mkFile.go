@@ -8,38 +8,33 @@
 package crud
 
 import (
-  "fmt"
+  //"fmt"
   //"path"
   //"strings"
-  "strconv"
   "net/http"
   //"encoding/json"
 
-  "github.com/gorilla/mux"
+  //"github.com/gorilla/mux"
   "restapi/element"
+  "restapi/utils"
 )
 
 // MkFile makes a file
 func MkFile(w http.ResponseWriter, r *http.Request) {
   // Get the path (and name) for the file to be saved
-  params := mux.Vars(r)
-  name := params["file"]
-  dirID, err := strconv.Atoi(params["parent"])
-  if err != nil {
-    fmt.Fprintf(w, "MkFile: %s\n", err)
-  }
-  fmt.Fprintf(w, "MkFile: will make file \"%s\" in directory with ID = %v\n", name, dirID)
+  //params := mux.Vars(r)
+  //name := params["file"]
 
   file := new(element.Element)
 
   // Get the JSON data
-  err = file.SetFileData(r)
+  err := file.SetFileData(r)
   if err != nil {
-    fmt.Fprintf(w, "MkFile: %s\n", err)
+    utils.Log("MkFile: %s\n", err)
     return
   }
 
   // Add to filetree
 
-  fmt.Println(outputAsJSON(file))
+  utils.Log("File created:\n" + file.OutputJSON())
 }
